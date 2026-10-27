@@ -43,10 +43,22 @@
 
 ## 安装 / 卸载
 
-插件已通过 DSH 的 profile 插件管理器安装到 `desktop` profile：
+从 GitHub 安装（仓库里已经包含构建后的 `lib/`）：
+
+```powershell
+dsh plugin --profile desktop add "git+https://github.com/kevinx-key/dsh-plugin-read-aloud.git"
+```
+
+本地开发时也可以直接链接 checkout：
 
 ```powershell
 dsh plugin --profile desktop add "link:<仓库所在的绝对路径>"
+```
+
+npm 发布后可以简写为：
+
+```powershell
+dsh plugin --profile desktop add dsh-plugin-read-aloud
 ```
 
 卸载：
