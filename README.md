@@ -151,6 +151,9 @@ Host 的 `lib/index.cjs`，因此 npm 安装时不需要 `postinstall` 或 pnpm 
 
 ## 发布
 
-DSH 当前没有官方插件市场；「发现」读取的是用户添加的自定义索引。npm 发布、format 1 索引、
-社区目录和安装验证步骤见 [`PUBLISHING.md`](PUBLISHING.md)，可直接托管的索引在
-[`market/index.json`](market/index.json)。
+DSH 当前没有官方插件市场；「发现」读取的是用户添加的自定义索引。本仓库不依赖 npm：
+安装源是 GitHub 的固定 commit，索引由 GitHub Pages 托管在
+`https://kevinx-key.github.io/dsh-plugin-read-aloud/index.json`。
+
+完整步骤见 [`PUBLISHING.md`](PUBLISHING.md)；本地索引在 [`market/index.json`](market/index.json)，
+Pages 使用的副本在 [`docs/index.json`](docs/index.json)。

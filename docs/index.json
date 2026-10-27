@@ -1,0 +1,103 @@
+{
+  "format": 1,
+  "title": {
+    "zh": "朗读助手插件市场",
+    "en": "Read Aloud Plugin Market"
+  },
+  "description": {
+    "zh": "DSH 朗读插件的自托管索引；把本文件放在 HTTPS 上，然后在「插件 → 发现 → 添加索引源」中填入它的 URL。",
+    "en": "Self-hosted index for the DSH read-aloud plugin. Serve this file over HTTPS and add its URL in Plugins → Discover → Add index source."
+  },
+  "metadata": {
+    "categories": {
+      "accessibility": {
+        "title": {
+          "zh": "无障碍与语音",
+          "en": "Accessibility & Voice"
+        }
+      }
+    },
+    "labels": {
+      "tts": {
+        "title": {
+          "zh": "语音合成",
+          "en": "Text to speech"
+        }
+      },
+      "offline": {
+        "title": {
+          "zh": "离线可用",
+          "en": "Works offline"
+        }
+      },
+      "windows": {
+        "title": {
+          "zh": "Windows 本地语音",
+          "en": "Windows local voices"
+        }
+      }
+    },
+    "sortKeys": {
+      "updated": {
+        "title": {
+          "zh": "更新时间",
+          "en": "Updated"
+        },
+        "order": "desc"
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-plugin-read-aloud",
+      "title": {
+        "zh": "朗读助手",
+        "en": "Read Aloud"
+      },
+      "description": {
+        "zh": "朗读 DSH 助手回复或选中的文字。默认使用 Edge 在线自然音色，断网时回退 Windows SAPI；支持逐句高亮、精确暂停/继续、0.5×–2× 语速、音色切换和右键划词朗读。",
+        "en": "Read DSH assistant replies or selected text aloud. Uses Microsoft Edge natural voices by default and falls back to Windows SAPI offline; sentence highlighting, exact pause/resume, 0.5×–2× speed, voice switching, and a selection context menu."
+      },
+      "author": "dsh-plugin-read-aloud contributors",
+      "homepage": "https://github.com/kevinx-key/dsh-plugin-read-aloud",
+      "repository": {
+        "url": "https://github.com/kevinx-key/dsh-plugin-read-aloud"
+      },
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMyZjZmZWQiLz48cGF0aCBkPSJNMjAgMjZoN2w5LTd2MjZsLTktN2gtN3oiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNNDEgMjVjMyAyIDQgNSA0IDdzLTEgNS00IDdNNDYgMjBjNSA0IDcgOCA3IDEycy0yIDgtNyAxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+",
+      "metadata": {
+        "category": "accessibility",
+        "labels": [
+          "tts",
+          "offline",
+          "windows"
+        ],
+        "keywords": [
+          "read aloud",
+          "朗读",
+          "TTS",
+          "text to speech",
+          "Edge",
+          "SAPI"
+        ],
+        "sortKeys": {
+          "updated": 1793088651
+        }
+      },
+      "versions": [
+        {
+          "version": "0.3.0",
+          "publishTimestamp": 1793088651,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/kevinx-key/dsh-plugin-read-aloud",
+            "commit": "963114957bbf8f4a4a488d12f97edf20cc88da05"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        }
+      ]
+    }
+  ]
+}
+
