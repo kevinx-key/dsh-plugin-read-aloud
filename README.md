@@ -1,5 +1,7 @@
 # dsh-plugin-read-aloud
 
+源码仓库：[github.com/kevinx-key/dsh-plugin-read-aloud](https://github.com/kevinx-key/dsh-plugin-read-aloud)
+
 在 DSH 的每条正式助手回复下方，复制 / 点赞按钮旁增加一个喇叭按钮。点击后：
 
 - 从当前回复的第一段开始，按从上到下的顺序朗读；

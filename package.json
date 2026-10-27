@@ -20,11 +20,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/709208969/dsh-plugin-read-aloud.git"
+    "url": "git+https://github.com/kevinx-key/dsh-plugin-read-aloud.git"
   },
-  "homepage": "https://github.com/709208969/dsh-plugin-read-aloud#readme",
+  "homepage": "https://github.com/kevinx-key/dsh-plugin-read-aloud#readme",
   "bugs": {
-    "url": "https://github.com/709208969/dsh-plugin-read-aloud/issues"
+    "url": "https://github.com/kevinx-key/dsh-plugin-read-aloud/issues"
   },
   "main": "lib/index.js",
   "exports": {
@@ -74,3 +74,4 @@
   },
   "license": "MIT"
 }
+
