@@ -61,6 +61,17 @@ npm 发布后可以简写为：
 dsh plugin --profile desktop add dsh-plugin-read-aloud
 ```
 
+### 从「发现」安装
+
+DSH 没有官方插件市场；本仓库用 GitHub Pages 托管了一个自定义索引：
+
+```text
+https://kevinx-key.github.io/dsh-plugin-read-aloud/index.json
+```
+
+先在「插件 → 实验性插件 → 更多」启用「自定义插件市场」，再到「发现 → 添加索引源」填入上面的 URL。
+索引安装的是固定到 Git commit 的版本，不需要 npm。
+
 卸载：
 
 ```powershell
