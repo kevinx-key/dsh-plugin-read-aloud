@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>朗读助手 · DSH 插件市场索引</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 72px;
+      font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: #1f2328;
+      background: #ffffff;
+    }
+    h1 { margin: 0 0 8px; font-size: 30px; }
+    p { margin: 12px 0; }
+    code, pre {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 13px;
+    }
+    pre {
+      overflow-x: auto;
+      padding: 14px 16px;
+      border: 1px solid #d0d7de;
+      border-radius: 10px;
+      background: #f6f8fa;
+    }
+    a { color: #2f6fed; }
+    .muted { color: #656d76; }
+    @media (prefers-color-scheme: dark) {
+      body { color: #e6edf3; background: #0d1117; }
+      pre { border-color: #30363d; background: #161b22; }
+      a { color: #79b8ff; }
+      .muted { color: #8b949e; }
+    }
+  </style>
+</head>
+<body>
+  <h1>朗读助手</h1>
+  <p>DSH 助手回复与划词朗读插件：Edge 自然音色、Windows SAPI 离线回退、逐句高亮、精确暂停/继续、0.5×–2× 倍速。</p>
+  <p class="muted">这是一个自定义 DSH 插件市场索引，不是官方商店。</p>
+
+  <h2>在 DSH 中添加索引</h2>
+  <pre>https://kevinx-key.github.io/dsh-plugin-read-aloud/index.json</pre>
+  <p>先在「插件 → 实验性插件 → 更多」启用「自定义插件市场」，再到「发现 → 添加索引源」填入上面的 URL。</p>
+
+  <h2>直接安装</h2>
+  <pre>dsh plugin --profile desktop add "git+https://github.com/kevinx-key/dsh-plugin-read-aloud.git"</pre>
+
+  <p><a href="https://github.com/kevinx-key/dsh-plugin-read-aloud">查看 GitHub 仓库与完整文档</a></p>
+</body>
+</html>
