@@ -1,0 +1,76 @@
+{
+  "name": "dsh-plugin-read-aloud",
+  "version": "0.3.0",
+  "description": "Read DSH assistant replies or selected text aloud with Edge/SAPI voices, precise pause/resume, speed control, and selection context menu.",
+  "type": "module",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "tts",
+    "text-to-speech",
+    "read-aloud",
+    "edge-tts",
+    "sapi"
+  ],
+  "engines": {
+    "dsh": ">=0.2.1-rc.2 <0.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/709208969/dsh-plugin-read-aloud.git"
+  },
+  "homepage": "https://github.com/709208969/dsh-plugin-read-aloud#readme",
+  "bugs": {
+    "url": "https://github.com/709208969/dsh-plugin-read-aloud/issues"
+  },
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/index.cjs",
+    "lib/client.js",
+    "lib/client.js.map",
+    "lib/worker.ps1",
+    "cordis.patch.yml",
+    "README.md",
+    "PUBLISHING.md",
+    "THIRD_PARTY_NOTICES.md",
+    "market/index.json",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-chat"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "npm run build && node --import tsx --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "jsdom": "^29.1.1",
+    "msedge-tts": "^2.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsx": "^4.23.15"
+  },
+  "license": "MIT"
+}

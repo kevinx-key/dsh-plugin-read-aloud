@@ -1,0 +1,12 @@
+# dsh-plugin-read-aloud's bundle layer.
+#
+# `dsh plugin --profile desktop add link:<this directory>` appends this package to
+# the profile's dsh.profile.bundles. The row below starts the Host half (the
+# loopback SAPI5 bridge); its browser half is discovered from package.json
+# dsh.client and served at /plugins/dsh-plugin-read-aloud/client.js.
+#
+# The row id is intentionally stable so a user can disable or override the
+# feature from ~/.dsh/profiles/desktop/cordis.patch.yml.
+- insert:
+    - id: read-aloud
+      name: dsh-plugin-read-aloud
