@@ -105,14 +105,14 @@ gh api repos/kevinx-key/dsh-plugin-read-aloud/pages
 "source": {
   "type": "git",
   "url": "https://github.com/kevinx-key/dsh-plugin-read-aloud",
-  "commit": "2760f5638185782f9b6c707a5fe1a039580a25fe"
+  "commit": "49f34744ce14be6cb4ea4f3e747c263639b08b73"
 }
 ```
 
 DSH 会把它转换成：
 
 ```text
-git+https://github.com/kevinx-key/dsh-plugin-read-aloud.git#2760f5638185782f9b6c707a5fe1a039580a25fe
+git+https://github.com/kevinx-key/dsh-plugin-read-aloud.git#49f34744ce14be6cb4ea4f3e747c263639b08b73
 ```
 
 这个 commit 必须包含可用的 `lib/`。**发布新版本时**：
@@ -195,4 +195,5 @@ Git 源的每次升级都要更新索引里的 `commit`，否则用户装到的�
 - Host 在 `127.0.0.1:18766–18777` 启动 loopback 服务，需要用户信任。
 - 没有官方市场、没有索引签名、没有自动升级。
 - Git 源固定 commit，升级需要手动更新索引。
+
 
