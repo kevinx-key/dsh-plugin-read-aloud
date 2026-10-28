@@ -80,17 +80,17 @@
           "SAPI"
         ],
         "sortKeys": {
-          "updated": 1793088651
+          "updated": 1793167553
         }
       },
       "versions": [
         {
-          "version": "0.3.0",
-          "publishTimestamp": 1793088651,
+          "version": "0.3.1",
+          "publishTimestamp": 1793167553,
           "source": {
             "type": "git",
             "url": "https://github.com/kevinx-key/dsh-plugin-read-aloud",
-            "commit": "963114957bbf8f4a4a488d12f97edf20cc88da05"
+            "commit": "2760f5638185782f9b6c707a5fe1a039580a25fe"
           },
           "engines": {
             "dsh": ">=0.2.1-rc.2 <0.3.0"
@@ -100,4 +100,5 @@
     }
   ]
 }
+
 
