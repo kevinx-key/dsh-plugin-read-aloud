@@ -143,6 +143,10 @@ test('right-click selection menu offers copy and read-aloud for the selected tex
   assert.ok(menu !== null)
   assert.match(menu.textContent, /朗读/)
   assert.match(menu.textContent, /复制/)
+  assert.deepEqual(
+    [...menu.querySelectorAll('button')].map(button => button.textContent.trim()),
+    ['复制', '朗读'],
+  )
 
   const readButton = [...menu.querySelectorAll('button')].find(button => button.textContent.includes('朗读'))
   act(() => { readButton.dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true })) })

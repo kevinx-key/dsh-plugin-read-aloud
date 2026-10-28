@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-read-aloud",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Read DSH assistant replies or selected text aloud with Edge/SAPI voices, precise pause/resume, speed control, and selection context menu.",
   "type": "module",
   "keywords": [

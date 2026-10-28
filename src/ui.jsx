@@ -199,13 +199,13 @@ export function ReadAloudGlobal({ controller }) {
           aria-label="选中文字操作"
           style={{ left, top }}
         >
-          <button type="button" className="dsr-menu-item" role="menuitem" onClick={speakSelection}>
-            <span className="dsr-menu-icon"><SpeakerIcon /></span>
-            朗读
-          </button>
           <button type="button" className="dsr-menu-item" role="menuitem" onClick={copySelection}>
             <span className="dsr-menu-icon"><CopyIcon /></span>
             复制
+          </button>
+          <button type="button" className="dsr-menu-item" role="menuitem" onClick={speakSelection}>
+            <span className="dsr-menu-icon"><SpeakerIcon /></span>
+            朗读
           </button>
         </div>
       )}
