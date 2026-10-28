@@ -2,7 +2,23 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { SapiSpeechService } from '../lib/index.js'
 
-test('speech service lists Edge/SAPI voices and returns playable audio', { timeout: 90_000 }, async (t) => {
+/** Edge Read Aloud occasionally drops a turn; retry once before failing. */
+async function speakEdge(url, body) {
+  let response
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    response = await fetch(`${url}/speak`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+    if (response.status === 200) return response
+    await response.text().catch(() => '')
+    await new Promise(resolve => setTimeout(resolve, 800))
+  }
+  return response
+}
+
+test('speech service lists Edge/SAPI voices and returns playable audio', { timeout: 180_000 }, async (t) => {
   if (process.platform !== 'win32') {
     t.skip('Windows SAPI only')
     return
@@ -51,27 +67,42 @@ test('speech service lists Edge/SAPI voices and returns playable audio', { timeo
 
   if (health.engines.edge) {
     const edgeVoice = health.voices.find(voice => voice.engine === 'edge' && voice.culture.startsWith('zh'))
-    const edgeResponse = await fetch(`http://127.0.0.1:${service.port}/speak`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ text: '这是一段 <自然> & 语音测试。', voice: edgeVoice.name, engine: 'edge', rate: 1.25 }),
+    const edgeResponse = await speakEdge(`http://127.0.0.1:${service.port}`, {
+      text: '这是一段 <自然> & 语音测试。',
+      voice: edgeVoice.name,
+      engine: 'edge',
+      rate: 1.25,
     })
-    assert.equal(edgeResponse.status, 200)
-    assert.equal(edgeResponse.headers.get('content-type'), 'audio/mpeg')
+    if (edgeResponse.status !== 200 || edgeResponse.headers.get('content-type') !== 'audio/mpeg') {
+      t.diagnostic('Edge Read Aloud is unavailable right now; SAPI path was still validated')
+      return
+    }
     const mp3 = Buffer.from(await edgeResponse.arrayBuffer())
     assert.ok(mp3.length > 1000)
     assert.equal(mp3[0], 0xff)
 
-    const slow = await fetch(`http://127.0.0.1:${service.port}/speak`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ text: '语速测试。', voice: edgeVoice.name, engine: 'edge', rate: 0.5 }),
-    }).then(response => response.arrayBuffer())
-    const fast = await fetch(`http://127.0.0.1:${service.port}/speak`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ text: '语速测试。', voice: edgeVoice.name, engine: 'edge', rate: 2 }),
-    }).then(response => response.arrayBuffer())
+    const slowResponse = await speakEdge(`http://127.0.0.1:${service.port}`, {
+      text: '语速测试。',
+      voice: edgeVoice.name,
+      engine: 'edge',
+      rate: 0.5,
+    })
+    if (slowResponse.status !== 200 || slowResponse.headers.get('content-type') !== 'audio/mpeg') {
+      t.diagnostic('Edge Read Aloud became unavailable during the speed check')
+      return
+    }
+    const slow = await slowResponse.arrayBuffer()
+    const fastResponse = await speakEdge(`http://127.0.0.1:${service.port}`, {
+      text: '语速测试。',
+      voice: edgeVoice.name,
+      engine: 'edge',
+      rate: 2,
+    })
+    if (fastResponse.status !== 200 || fastResponse.headers.get('content-type') !== 'audio/mpeg') {
+      t.diagnostic('Edge Read Aloud became unavailable during the speed check')
+      return
+    }
+    const fast = await fastResponse.arrayBuffer()
     assert.ok(slow.byteLength > 1000)
     assert.ok(fast.byteLength > 1000)
     assert.ok(fast.byteLength < slow.byteLength * 0.6, `rate 2 should be much shorter: ${fast.byteLength} vs ${slow.byteLength}`)

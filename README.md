@@ -8,7 +8,7 @@
 - 尚未朗读的文字用蓝色背景标出，读到后逐段清除；
 - 自动把当前朗读的句子滚动到视野内；
 - 选中会话中的文字后右键，菜单里有「朗读」和「复制」；点「朗读」立刻朗读选中内容，并出现底部迷你播放条，可暂停/继续/停止/切换语速；
-- 弹出「朗读设置」浮窗，可调整 **0.5×–2×** 倍速、暂停 / 继续 / 停止 / 从头朗读，并切换自然/本地音色；
+- 弹出「朗读设置」浮窗，可调整 **0.5×–3×** 倍速、暂停 / 继续 / 停止 / 从头朗读，并切换自然/本地音色；
 - 语速和音色会记住，下次会话继续使用；
 - 暂停后从**当前音频位置**继续，不再从本句或全文开头重读。
 
@@ -28,7 +28,7 @@
 2. 打开任意已有正式答复的会话。
 3. 把鼠标移到答复底部的操作栏，点击复制按钮右侧的喇叭图标。
 4. 朗读开始后，浮窗会自动出现；再次点击喇叭会暂停并保留浮窗，浮窗里的播放键可继续。
-5. 浮窗内可切换音色、拖动语速滑杆，或点 `0.75× / 1× / 1.25× / 1.5× / 2×` 快捷倍速。
+5. 浮窗内可切换音色、拖动语速滑杆，或点 `0.75× / 1× / 1.25× / 1.5× / 2× / 2.5× / 3×` 快捷倍速。
 
 关闭浮窗不会停止朗读；点浮窗外的区域或按 `Esc` 只关闭浮窗。
 
@@ -87,7 +87,7 @@ dsh plugin --profile desktop remove dsh-plugin-read-aloud
 - **正文定位**：从喇叭按钮所在的 `[data-turn-tail]` 向上找到会话流，再取该 Turn 中 tail 之前最后一个 `assistant-step` 行；只读正式答复，跳过 `Think` 推理、按钮、代码块工具条等 chrome。
 - **文本模型**：`TreeWalker` 遍历文本节点，折叠空白并记录“规范化字符 → 原 DOM 文本节点偏移”的映射；用 `Intl.Segmenter` 按句切分，过长句再按标点/空格切短。
 - **高亮**：用 `new Highlight()` + `CSS.highlights.set('dsh-read-aloud-pending', …)` 给“当前偏移到文末”的所有 Range 上蓝色背景，完全不改 React 的 DOM。Web Speech 用 `boundary` 事件推进偏移；Host 音频后端按句推进，读到句尾清除该句。
-- **Edge 自然语音**：Host 半用 `msedge-tts` 连接 Microsoft Edge Read Aloud，按句合成 MP3；SSML 文本先做 XML 转义。语速作为 Edge prosody `rate` 传入，所以改语速会从当前句重新合成，但音高自然。
+- **Edge 自然语音**：Host 半用 `msedge-tts` 连接 Microsoft Edge Read Aloud，按句合成 MP3；SSML 文本先做 XML 转义。语速作为 Edge prosody `rate` 传入，所以改语速会从当前句重新合成，但音高自然。Edge 的 prosody 实际最高约 2×；2.5×/3× 用 2× 合成后再叠加 Web Audio `playbackRate`（1.25/1.5），因此极速时音高会略高。
 - **本地 SAPI 合成**：Host 半用常驻 PowerShell worker 调用 `System.Speech` 生成 WAV；启动时对每个音色做一次极短试音，只保留能成功合成的 `Desktop` 音色。浏览器半用 `fetch` 取音频、Web Audio `decodeAudioData` 播放。
 - **暂停/继续**：不再依赖 `AudioContext.suspend`。暂停时记录 `AudioBufferSourceNode` 已播放的 buffer 秒数并停止 source；继续时用同一个 `AudioBuffer` 从该 offset 新建 source，因此精确到当前的音频位置。SAPI 的倍速用 `playbackRate` 实时调整；Edge 的倍速在重新合成当前句后生效。
 - **划词朗读**：全局 overlay 监听会话正文里的 `contextmenu`，`preventDefault` 后渲染自己的「朗读 / 复制」菜单；「朗读」把选中文字送入同一个 `chunks + AudioBuffer` 音频管线，所以暂停 offset、倍速、音色、Edge/SAPI 自动回退全部复用；底部迷你播放条由同一个 controller 快照驱动。

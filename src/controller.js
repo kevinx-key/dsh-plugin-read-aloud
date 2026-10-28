@@ -50,11 +50,19 @@ const ERROR_TEXT = {
  * @property {string|null} selectionText
  */
 
-/** Clamp a user-facing speed to the supported 0.5x–2x grid. */
+/** Edge's SSML prosody caps at 2x; higher speeds add Web Audio playbackRate. */
+const EDGE_MAX_BAKED_RATE = 2
+
+/** Clamp a user-facing speed to the supported 0.5x–3x grid. */
 function clampRate(value) {
   const number = Number(value)
   if (!Number.isFinite(number)) return DEFAULT_RATE
-  return Math.max(0.5, Math.min(2, Math.round(number * 4) / 4))
+  return Math.max(0.5, Math.min(3, Math.round(number * 4) / 4))
+}
+
+/** Extra playback rate needed above Edge's 2x synthesis cap. */
+function edgePlaybackRate(rate) {
+  return rate > EDGE_MAX_BAKED_RATE ? rate / EDGE_MAX_BAKED_RATE : 1
 }
 
 /** Read one string from localStorage without letting privacy modes break playback. */
@@ -766,7 +774,7 @@ export class ReadAloudController {
 
   /**
    * Change speed. The current sentence is repeated so the new rate takes effect.
-   * @param {number} value - 0.5–2.
+   * @param {number} value - 0.5–3.
    */
   setRate(value) {
     const next = clampRate(value)
@@ -776,7 +784,7 @@ export class ReadAloudController {
     this.setSnapshot({ rate: next })
     if (this.backend === 'sapi') {
       if (this.provider === 'edge') {
-        this.audioPlaybackRate = 1
+        this.audioPlaybackRate = edgePlaybackRate(next)
         if (this.snapshot.status === 'speaking') this.restartChunk()
         else if (this.snapshot.status === 'paused') this.pendingRestart = true
         return
@@ -859,7 +867,7 @@ export class ReadAloudController {
           text,
           voice: this.voiceURI || undefined,
           engine: this.provider,
-          rate: this.provider === 'edge' ? this.rate : 1,
+          rate: this.provider === 'edge' ? Math.min(this.rate, EDGE_MAX_BAKED_RATE) : 1,
         }),
         signal: controller.signal,
       })
@@ -920,7 +928,7 @@ export class ReadAloudController {
     const context = this.ensureAudioContext()
     await context.resume()
     if (run !== this.runId || this.snapshot.status !== 'speaking') return
-    const playbackRate = this.provider === 'edge' ? 1 : this.rate
+    const playbackRate = this.provider === 'edge' ? edgePlaybackRate(this.rate) : this.rate
     const source = context.createBufferSource()
     source.buffer = buffer
     source.playbackRate.value = playbackRate

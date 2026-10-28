@@ -85,6 +85,7 @@ test('settings panel exposes speed, voice, transport and closes on Escape', () =
   assert.match(panel.textContent, /音色/)
   const range = panel.querySelector('input[type="range"]')
   assert.equal(range.value, '1')
+  assert.equal(range.max, '3')
   const voice = panel.querySelector('select')
   assert.equal(voice.value, 'zh')
   assert.ok(panel.querySelector('button[aria-label="停止朗读"]'))
@@ -92,6 +93,9 @@ test('settings panel exposes speed, voice, transport and closes on Escape', () =
   const chip = [...panel.querySelectorAll('.dsr-chip')].find(button => button.textContent === '1.5×')
   act(() => { chip.dispatchEvent(new globalThis.window.MouseEvent('click', { bubbles: true })) })
   assert.ok(calls.some(call => call[0] === 'setRate' && call[1] === 1.5))
+  const fastChip = [...panel.querySelectorAll('.dsr-chip')].find(button => button.textContent === '3×')
+  act(() => { fastChip.dispatchEvent(new globalThis.window.MouseEvent('click', { bubbles: true })) })
+  assert.ok(calls.some(call => call[0] === 'setRate' && call[1] === 3))
 
   act(() => {
     dom.window.document.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))

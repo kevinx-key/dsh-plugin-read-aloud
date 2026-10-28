@@ -234,7 +234,7 @@ function SelectionPlayer({ controller, state }) {
       : paused
         ? '已暂停'
         : '已停止'
-  const rates = [0.75, 1, 1.25, 1.5, 2]
+  const rates = [0.75, 1, 1.25, 1.5, 2, 2.5, 3]
   const nextRate = rates[(rates.indexOf(state.rate) + 1) % rates.length] ?? 1
   return (
     <div className="dsr-mini" role="status">
@@ -551,7 +551,7 @@ function ReadAloudPanel({
           className="dsr-range"
           type="range"
           min="0.5"
-          max="2"
+          max="3"
           step="0.25"
           value={rateDraft}
           aria-label="朗读速度"
@@ -563,7 +563,7 @@ function ReadAloudPanel({
         <span className="dsr-rate">{rateDraft.toFixed(2).replace(/\.?0+$/u, '')}×</span>
       </div>
       <div className="dsr-chips">
-        {[0.75, 1, 1.25, 1.5, 2].map(value => (
+        {[0.75, 1, 1.25, 1.5, 2, 2.5, 3].map(value => (
           <button
             key={value}
             type="button"

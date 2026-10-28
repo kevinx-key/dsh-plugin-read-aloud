@@ -282,6 +282,7 @@ export class SapiSpeechService {
         if (text === '') throw new Error('text is required')
         if (text.length > MAX_TEXT_LENGTH) throw new Error('text is too long')
         const voice = typeof body.voice === 'string' ? body.voice : ''
+        // Edge prosody caps around 2x; the client adds playbackRate above that.
         const rate = Math.max(0.5, Math.min(2, Number(body.rate) || 1))
         const requested = body.engine === 'sapi' ? 'sapi' : 'edge'
         const useEdge = requested === 'edge' && this.edgeReady

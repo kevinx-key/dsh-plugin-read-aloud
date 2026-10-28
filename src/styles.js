@@ -268,6 +268,7 @@ export const READ_ALOUD_CSS = `
 
 .dsr-chips {
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
   margin: 7px 0 0 41px;
 }

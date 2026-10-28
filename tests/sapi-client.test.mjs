@@ -191,6 +191,13 @@ test('Edge backend uses natural voices and re-synthesizes on speed change', asyn
   const lastSpeak = calls.filter(call => call.url.endsWith('/speak')).at(-1)
   assert.equal(JSON.parse(lastSpeak.body).rate, 1.5)
   assert.equal(context.sources[1].playbackRate.value, 1)
+
+  controller.setRate(3)
+  await tick()
+  assert.equal(context.sources.length, 3)
+  const fastestSpeak = calls.filter(call => call.url.endsWith('/speak')).at(-1)
+  assert.equal(JSON.parse(fastestSpeak.body).rate, 2)
+  assert.ok(Math.abs(context.sources[2].playbackRate.value - 1.5) < 0.001)
   controller.dispose()
 })
 
